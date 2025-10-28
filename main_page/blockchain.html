@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>웹 포트폴리오 · 네트워크/브릿지/SBT · 김재현</title>
+  <meta name="theme-color" content="#0b0f19" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* 페이지 내 작은 보조 스타일(공통 스타일과 충돌 없음) */
+    .badge { display:inline-block; padding:4px 8px; border:1px solid rgba(255,255,255,.12);
+      border-radius:999px; font-size:12px; color:#cfefff; background:#141e34; margin:2px 4px; }
+    .note.bad { color:#ffb4b4; }
+    .grid.auto { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .net-json { white-space: pre-wrap; word-break: break-all; font-size: 12.5px; }
+    .mini { font-size: .92rem; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <!-- ====================== Header ======================= -->
+  <header class="site-header">
+    <nav class="nav">
+      <div class="brand"><a href="index.html" style="text-decoration:none;color:inherit;">KIM JAEHYUN</a></div>
+      <ul class="nav-links">
+        <!-- 요청하신 목차 그대로 사용 -->
+        <li><a href="#about" aria-current="page">소개</a></li>
+        <li><a href="roadmap.html#roadmap">로드맵</a></li>
+        <li><a href="codetest.html">코딩 테스트</a></li>
+        <li><a href="blockchain.html">블록체인 개발 포트폴리오</a></li>
+      </ul>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">웹 포트폴리오 & 네트워크 운영</h1>
+        <p class="hero-lead">
+          TMZ_Freeze · Bridge Project · PoA 네트워크(3개) 운영 · 브릿지 · SBT/RWA · 보안·운영 기술 요약
+        </p>
+        <div class="tags">
+          <span class="tag">Web</span>
+          <span class="tag">EVM</span>
+          <span class="tag">Bridge</span>
+          <span class="tag">PoA(geth)</span>
+          <span class="tag">SBT/RWA</span>
+          <span class="tag">Security</span>
+          <span class="tag">PM2</span>
+        </div>
+        <a href="#projects" class="cta">프로젝트 보기</a>
+      </div>
+      <div class="hero-glow" aria-hidden="true"></div>
+    </section>
+  </header>
+
+  <main id="main">
+    <!-- ====================== About ======================= -->
+    <section id="about" class="section container">
+      <h2 class="section-title">소개</h2>
+      <div class="grid two">
+        <article class="card">
+          <h3>페이지 개요</h3>
+          <p>
+            이 페이지는 김재현의 <strong>웹/블록체인 포트폴리오</strong>를 한곳에 정리한 자료입니다.
+            자체 운영 중인 <strong>PoA 네트워크 3개</strong>, <strong>Mint/Burn 브릿지</strong>,
+            <strong>SBT·RWA 생성</strong>, <strong>Relayer 보안/가디언 복구</strong> 등
+            기술 스택과 산출물을 요약합니다.
+          </p>
+          <p class="note mini">
+            용어 정리 — <strong>토큰(ERC-20)</strong>: 총량 한정 자산 / <strong>코인</strong>: 네이티브 네트워크 수수료에 사용되는 화폐
+          </p>
+        </article>
+        <article class="card">
+          <h3>빠른 링크</h3>
+          <div class="links-inline">
+            <a target="_blank" rel="noopener" href="https://rich-hyun.github.io/TMZ_Freeze/index.html">TMZ_Freeze 페이지</a>
+            <a target="_blank" rel="noopener" href="https://rich-hyun.github.io/Bridge_Project/">브릿지 프로젝트</a>
+          </div>
+          <div style="margin-top:10px">
+            <span class="badge">Python</span>
+            <span class="badge">Solidity</span>
+            <span class="badge">Hardhat</span>
+            <span class="badge">web3</span>
+            <span class="badge">geth</span>
+            <span class="badge">PM2</span>
+            <span class="badge">IPFS</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================== Projects ======================= -->
+    <section id="projects" class="section container">
+      <h2 class="section-title">웹 프로젝트</h2>
+      <div class="grid auto">
+        <article class="card">
+          <h3>TMZ_Freeze</h3>
+          <p>
+            TMZ 네트워크 실험/운영을 위한 웹 유틸리티. 계정/토큰 상태 점검, 운영상의 테스트 워크플로우를 단순화하기 위한 목적으로 제작.
+          </p>
+          <div class="links-inline">
+            <a target="_blank" rel="noopener" href="https://rich-hyun.github.io/TMZ_Freeze/index.html">열기</a>
+          </div>
+          <p class="note">※ 상세 기능은 운영 정책에 따라 비공개 설정일 수 있습니다.</p>
+        </article>
+
+        <article class="card">
+          <h3>Bridge Project (Mint/Burn)</h3>
+          <p>
+            <strong>Mint/Burn 방식</strong>의 체인 간 자산 이동. 현재 교환비는 1:1이나,
+            <em>네트워크 성장 전략</em>에 맞춰 <strong>1 MST = 100 JKK</strong> 등으로 조정 가능.
+            메타마스크 내 직접 사용은 제한되며, 제공 웹 페이지에서 교환 가능.
+          </p>
+          <ul class="bullets">
+            <li>연구실 <strong>6번 서버</strong> PM2로 24시간 가동</li>
+            <li><strong>토큰·코인 모두 브릿지 가능</strong>하나, 코인 브릿지는 보안상 매우 취약 → <strong>토큰 중심</strong> 모델 설계</li>
+          </ul>
+          <div class="links-inline">
+            <a target="_blank" rel="noopener" href="https://rich-hyun.github.io/Bridge_Project/">프로젝트 열기</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================== Networks ======================= -->
+    <section id="networks" class="section container">
+      <h2 class="section-title">운영 중인 PoA 네트워크(3)</h2>
+
+      <div class="card table">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>네트워크</th>
+              <th>RPC URL</th>
+              <th>Chain ID</th>
+              <th>통화 기호</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1</strong></td>
+              <td>MST-PoA</td>
+              <td><a target="_blank" rel="noopener" href="https://rpc.mstblock.com">https://rpc.mstblock.com</a></td>
+              <td>1213</td>
+              <td>MST</td>
+              <td>연구실 서버 geth 기반 PoA 24/7 구동</td>
+            </tr>
+            <tr>
+              <td><strong>2</strong></td>
+              <td>TMZ</td>
+              <td><a target="_blank" rel="noopener" href="https://jkk.mst2.site">https://jkk.mst2.site</a></td>
+              <td>7707</td>
+              <td>TMZ</td>
+              <td>연구실 서버 geth 기반 PoA 24/7 구동</td>
+            </tr>
+            <tr>
+              <td><strong>3</strong></td>
+              <td>JKK</td>
+              <td><a target="_blank" rel="noopener" href="http://203.252.147.199">http://203.252.147.199</a></td>
+              <td>7706</td>
+              <td>JKK</td>
+              <td class="note bad">HTTP(비TLS) — 외부 URL 연결 안 했고, <strong>모바일 메타마스크 연결 불가</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">
+          모든 네트워크는 자체 연구실 서버에서 24시간 구동됩니다(총 6대 중 4대 사용 중). 각 네트워크는 독립 서버가 필요합니다.
+        </p>
+      </div>
+
+      <div class="grid two mt">
+        <article class="card">
+          <h3>지갑 추가(JSON 예시 · MetaMask)</h3>
+<pre class="net-json"><code>// MST-PoA
+{
+  "chainId": "0x4BD",            // 1213
+  "chainName": "MST-PoA",
+  "rpcUrls": ["https://rpc.mstblock.com"],
+  "nativeCurrency": { "name": "MST", "symbol": "MST", "decimals": 18 }
+}
+
+// TMZ
+{
+  "chainId": "0x1E1B",           // 7707
+  "chainName": "TMZ",
+  "rpcUrls": ["https://jkk.mst2.site"],
+  "nativeCurrency": { "name": "TMZ", "symbol": "TMZ", "decimals": 18 }
+}
+
+// JKK (HTTP - 모바일 미지원)
+{
+  "chainId": "0x1E1A",           // 7706
+  "chainName": "JKK",
+  "rpcUrls": ["http://203.252.147.199"],
+  "nativeCurrency": { "name": "JKK", "symbol": "JKK", "decimals": 18 }
+}
+</code></pre>
+          <p class="note mini">※ 메타마스크 → 네트워크 추가 → 위 JSON 항목 참고(개발자 콘솔의 <code>wallet_addEthereumChain</code> 사용 가능)</p>
+        </article>
+
+        <article class="card">
+          <h3>네트워크 운영 포인트</h3>
+          <ul class="bullets">
+            <li>스마트 컨트랙트 실행 가능(EVM)</li>
+            <li>블록 타임: <strong>5초</strong> / 현재 처리량 약 <strong>5 TPS</strong> 추정</li>
+            <li>TPS 증가는 구조적으로 난도 높음(블록체인 특성 + 현재 기술 한계)</li>
+          </ul>
+          <div class="chips">
+            <span class="chip">PoA(geth)</span>
+            <span class="chip">Monitoring</span>
+            <span class="chip">Server Ops</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================== Bridge ======================= -->
+    <section id="bridge" class="section container">
+      <h2 class="section-title">브릿지 (Mint/Burn)</h2>
+      <div class="grid two">
+        <article class="card">
+          <h3>동작 방식</h3>
+          <ul class="bullets">
+            <li><strong>Mint/Burn</strong> 구조로 체인 간 자산 이동</li>
+            <li>교환비는 설정식(현재 1:1 → <strong>예: 1 MST = 100 JKK</strong>로 조정 가능)</li>
+            <li>메타마스크 직접 사용 제한 → 제공 웹사이트에서 교환 처리</li>
+            <li>연구실 <strong>6대 서버</strong> PM2로 24시간 운영</li>
+          </ul>
+          <div class="links-inline">
+            <a target="_blank" rel="noopener" href="https://rich-hyun.github.io/Bridge_Project/">브릿지 웹사이트</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>보안·운영 노트</h3>
+          <ul class="bullets">
+            <li><strong>코인 브릿지</strong>: 보안상 <u>매우 취약</u> → <strong>토큰 브릿지</strong> 중심 비즈니스 모델</li>
+            <li>Relayer 24/7 구동(현재 6번 서버). 공개 리포지토리 사용 시 <strong>핵심 구간</strong></li>
+            <li>비밀정보(개인키·주소) <strong>환경변수/로컬</strong>로 분리, 권한 최소화</li>
+            <li>추가 보안 필요: 키 보관(HSM/HashiCorp Vault), 서명 분산(MPC), 감사 로그</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================== Products: SBT / RWA ======================= -->
+    <section id="tokens" class="section container">
+      <h2 class="section-title">제품화: SBT · RWA</h2>
+      <div class="grid two">
+        <article class="card">
+          <h3>SBT (SoulBound Token)</h3>
+          <p>
+            타인에게 전송되지 않는 <strong>비양도성</strong> 토큰. 신원·자격·소속 증명 등 활용.
+            관련 논문 보유, 구현 경험 기반으로 <strong>사업 계획서</strong> 전개 가능.
+          </p>
+          <div class="chips">
+            <span class="chip">Non-Transferable</span>
+            <span class="chip">Identity</span>
+            <span class="chip">Governance</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>RWA (Real World Asset)</h3>
+          <p>
+            실물 자산 성격을 갖는 토큰. SBT와 <strong>개발 난이도는 유사</strong>하며, 권한·검증·거버넌스 설계가 핵심.
+            다양한 파트너십 모델로 사업화 가능.
+          </p>
+          <div class="chips">
+            <span class="chip">Asset Token</span>
+            <span class="chip">Compliance</span>
+            <span class="chip">Use-case</span>
+          </div>
+        </article>
+      </div>
+
+      <article class="card mt">
+        <h3>NFT vs SBT/RWA</h3>
+        <p>
+          <strong>NFT</strong>는 “희소성 있는 토큰”에 대한 총칭이며, <strong>SBT</strong>·<strong>RWA</strong>는
+          기능/목적에 따른 <strong>NFT의 하위 유형</strong>으로 볼 수 있습니다.
+        </p>
+      </article>
+    </section>
+
+    <!-- ====================== Extra Tech ======================= -->
+    <section id="extra" class="section container">
+      <h2 class="section-title">그 외 핵심 기술</h2>
+      <div class="grid auto">
+        <article class="card">
+          <h3>TPS·성능</h3>
+          <ul class="bullets">
+            <li>블록 타임 5초 / 현재 약 <strong>5 TPS</strong> 추정</li>
+            <li>TPS 증대는 구조적으로 고난이도 → <strong>옵스 최적화·사용자 경험</strong> 먼저 개선</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Relayer 보안</h3>
+          <ul class="bullets">
+            <li>24/7 가동, 공격 표면이 가장 큰 구간</li>
+            <li>현재: 키/주소 환경변수 분리, 로컬 한정 실행</li>
+            <li>향후: Vault/MPC, 접근제어, 서명감사·알림</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>가디언 복구</h3>
+          <ul class="bullets">
+            <li>NFT/RWA/SBT 분실 시 <strong>가디언 승인</strong>으로 복구</li>
+            <li>머스트리 <strong>3개 계정</strong>의 동의로 원 소유자 확인</li>
+            <li>정책/UX 보완 개발 진행 필요</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>지갑·앱 구상</h3>
+          <ul class="bullets">
+            <li>웹 기반 지갑 앱으로 <strong>구매/교환/스테이킹</strong> 통합</li>
+            <li>개발 공수 큼 — 점진적 MVP → 기능 확장 전략</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================== Skills ======================= -->
+    <section id="skills" class="section container">
+      <h2 class="section-title">스킬 키워드</h2>
+      <div class="grid two">
+        <article class="card">
+          <h3>Blockchain / Smart Contract</h3>
+          <p>
+            <span class="badge">Solidity</span>
+            <span class="badge">Hardhat</span>
+            <span class="badge">Foundry</span>
+            <span class="badge">ERC-20</span>
+            <span class="badge">SBT/RWA</span>
+            <span class="badge">Bridge(Mint/Burn)</span>
+            <span class="badge">web3.js / web3.py</span>
+          </p>
+        </article>
+        <article class="card">
+          <h3>Network / Infra / Ops</h3>
+          <p>
+            <span class="badge">geth(PoA)</span>
+            <span class="badge">PM2</span>
+            <span class="badge">Linux</span>
+            <span class="badge">Server Ops</span>
+            <span class="badge">Monitoring</span>
+            <span class="badge">Security(ENV, ACL)</span>
+          </p>
+        </article>
+      </div>
+
+      <div class="grid two mt">
+        <article class="card">
+          <h3>Backend / Web</h3>
+          <p>
+            <span class="badge">Python</span>
+            <span class="badge">FastAPI</span>
+            <span class="badge">PostgreSQL</span>
+            <span class="badge">Redis</span>
+            <span class="badge">Docker</span>
+            <span class="badge">CI</span>
+          </p>
+        </article>
+        <article class="card">
+          <h3>Governance / Recovery</h3>
+          <p>
+            <span class="badge">Guardian System</span>
+            <span class="badge">Key Management</span>
+            <span class="badge">MPC(Plan)</span>
+            <span class="badge">Audit Log</span>
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================== CTA ======================= -->
+    <section id="cta" class="section container">
+      <h2 class="section-title">데모 & 문서</h2>
+      <div class="grid two">
+        <article class="card">
+          <h3>웹 데모</h3>
+          <div class="links-inline">
+            <a target="_blank" rel="noopener" href="https://rich-hyun.github.io/TMZ_Freeze/index.html">TMZ_Freeze</a>
+            <a target="_blank" rel="noopener" href="https://rich-hyun.github.io/Bridge_Project/">Bridge Project</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>문의</h3>
+          <p class="note">협력사 전용 네트워크 구축 요청 시 — 현실적으로 <strong>버튼 한 번 생성은 불가</strong>하나, 환경에 따라 <strong>약 1시간/네트워크</strong> 내 구성 가능(서버 1대 필요).</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© 2025 김재현 — Web Portfolio & Networks</p>
+      <a class="top" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">맨 위로 ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

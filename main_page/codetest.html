@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>학습 플랜 · 코딩테스트 — 김재현</title>
+  <meta name="theme-color" content="#0b0f19" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <header class="site-header">
+    <nav class="nav">
+      <div class="brand"><a href="index.html" style="text-decoration:none;color:inherit;">KIM JAEHYUN</a></div>
+      <ul class="nav-links">
+        <li><a href="#about">소개</a></li>
+        <li><a href="roadmap.html#roadmap">로드맵</a></li>
+        <li><a href="codetest.html#learning" aria-current="page">코딩 테스트</a></li>
+        <li><a href="blockchain.html">블록체인 개발 포트폴리오</a></li>
+      </ul>
+    </nav>
+
+
+    <section class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">학습 플랜 & 코딩테스트</h1>
+        <p class="hero-lead">Python 백엔드 · EVM 블록체인 · 알고리즘/CS 루틴</p>
+        <a href="#coding" class="cta">코딩테스트 바로가기</a>
+      </div>
+      <div class="hero-glow" aria-hidden="true"></div>
+    </section>
+  </header>
+
+  <main id="main">
+    <!-- 학습 플랜 -->
+    <section id="learning" class="section container">
+      <h2 class="section-title">기술 학습 플랜 (Python + Blockchain)</h2>
+      <div class="grid two">
+        <article class="card">
+          <h3>A. 백엔드 트랙</h3>
+          <ul class="bullets">
+            <li>FastAPI · SQLAlchemy · Alembic · Pydantic</li>
+            <li>PostgreSQL(인덱스/트랜잭션/락/최적화), Redis(캐시/큐)</li>
+            <li>Docker/Compose, GitHub Actions(CI), pytest(커버리지 80%+), OpenAPI 문서</li>
+            <li>배포: AWS(EC2/ECS/RDS/CloudWatch) 또는 GCP(Cloud Run/SQL)</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>B. 블록체인 트랙(EVM)</h3>
+          <ul class="bullets">
+            <li>Solidity 0.8.x — <a target="_blank" rel="noopener" href="https://docs.soliditylang.org/">공식 문서</a></li>
+            <li>툴체인: <a target="_blank" rel="noopener" href="https://hardhat.org/docs/getting-started">Hardhat</a> · <a target="_blank" rel="noopener" href="https://getfoundry.sh/">Foundry</a></li>
+            <li>클라이언트: <a target="_blank" rel="noopener" href="https://web3py.readthedocs.io/">web3.py</a> · <a target="_blank" rel="noopener" href="https://docs.web3js.org/">web3.js</a></li>
+            <li>품질/보안: Slither, 재진입/언더플로우 대응, 가스 프로파일링</li>
+          </ul>
+        </article>
+      </div>
+
+      <article class="card mt">
+        <h3>권장 산출물</h3>
+        <p class="note">컨트랙트 설계서(상태/이벤트/권한) · 테스트 시나리오(단위/통합) · 가스 리포트 · 취약점 표(완화 전략 포함)</p>
+      </article>
+    </section>
+
+    <!-- 코딩테스트 & CS -->
+    <section id="coding" class="section container">
+      <h2 class="section-title">코딩테스트 & CS</h2>
+
+      <div class="grid two">
+        <article class="card">
+          <h3>전략</h3>
+          <ul class="bullets">
+            <li>주력 언어(파이썬) 고정, 입출력/복잡도 튜닝 습관화</li>
+            <li>주간 모의(90–120분) 1회 + 해설 복기(오답노트)</li>
+            <li>지표: 백준 Gold4↑, 프로그래머스 Lv3 30+, LeetCode Medium 100</li>
+          </ul>
+        </article>
+
+        <!-- 플랫폼 — 요청대로 백준/프로그래머스만 남김 -->
+        <article class="card">
+          <h3>플랫폼</h3>
+          <div class="links-inline">
+            <a target="_blank" rel="noopener" href="https://www.acmicpc.net/">백준</a>
+            <a target="_blank" rel="noopener" href="https://programmers.co.kr/">프로그래머스</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- ===================== [NEW] 삼성·NAVER 합격 전략(파이썬) ===================== -->
+      <article class="card table mt">
+        <h3>[NEW] 삼성·NAVER 기준 합격 전략 (주언어: Python)</h3>
+        <p class="note">출제 경향(현업 공통): 구현/시뮬레이션, 그래프 탐색, 그리디·정렬, DP, 문자열/해시 중심. 실전은 “<strong>정확도+속도</strong>”와 “<strong>실행 시간 관리</strong>”가 핵심입니다.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>학습 섹션</th>
+              <th>핵심 주제</th>
+              <th>추천 연습(백준/프로그래머스)</th>
+              <th>합격 기준(정량)</th>
+              <th>파이썬 실전 팁</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>구현·시뮬레이션</strong></td>
+              <td>완전탐색, 시계/격자/큐 시뮬, 파싱</td>
+              <td>백준 구현·시뮬(실버~골드), 프로그래머스 Lv2–3</td>
+              <td>유형 30+문제, 90분 내 2문제 안정 해결</td>
+              <td><code>sys.stdin.readline</code>, 문자열 파싱 함수 템플릿화</td>
+            </tr>
+            <tr>
+              <td><strong>그래프</strong></td>
+              <td>BFS/DFS, Dijkstra, 위상정렬, Union-Find</td>
+              <td>백준 그래프/최단경로, 프로 Lv3 그래프</td>
+              <td>BFS/DFS 구현 암기, 최단경로 5문제 연속 무오답</td>
+              <td><code>deque</code> 사용, 인접리스트·방문배열 패턴 고정</td>
+            </tr>
+            <tr>
+              <td><strong>DP</strong></td>
+              <td>1D/2D DP, Knapsack, LIS, 비트마스크</td>
+              <td>백준 DP(골드 중심), 프로 Lv3 DP</td>
+              <td>점화식 도출 10유형(경로/부분수열/배낭) 요약노트</td>
+              <td>메모이제이션 패턴, <code>lru_cache</code> 적재적소 사용</td>
+            </tr>
+            <tr>
+              <td><strong>그리디·정렬·투포인터</strong></td>
+              <td>스케줄링, 인터벌, 힙/우선순위큐</td>
+              <td>백준 그리디/정렬, 프로 Lv2–3 힙</td>
+              <td>그리디 반례 점검 체크리스트로 검증 습관</td>
+              <td><code>heapq</code>, 정렬 key 최적화, 투포인터 템플릿</td>
+            </tr>
+            <tr>
+              <td><strong>문자열·해시</strong></td>
+              <td>KMP/Z(필요 시), 해시셋/맵, 슬라이딩윈도우</td>
+              <td>백준 문자열, 프로 Lv2–3 문자열</td>
+              <td>슬라이딩윈도우 5유형 템플릿 암기</td>
+              <td>딕셔너리/카운터, <code>defaultdict</code> 안전 사용</td>
+            </tr>
+            <tr>
+              <td><strong>수학·자료구조</strong></td>
+              <td>소인수분해, 누적합, 세그/펜윅(선택)</td>
+              <td>백준 수학·자료구조, 프로 Lv3 혼합</td>
+              <td>누적합/이분탐색/좌표압축 필수 10문제</td>
+              <td><code>bisect</code>, 리스트 컴프리헨션 과용 주의</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="card table mt">
+        <h3>[NEW] 실전 운영 체크리스트 (삼성·NAVER 공통)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>타임라인</th>
+              <th>체크 포인트</th>
+              <th>파이썬 전술</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>D-7 ~ D-1</strong></td>
+              <td>모의 2회(90–120분), 디버깅 속도 측정, 템플릿 정비(I/O, BFS/DFS, 다익스트라)</td>
+              <td><code>sys.setrecursionlimit</code> 사전 설정, 템플릿 스니펫 등록</td>
+            </tr>
+            <tr>
+              <td><strong>D-1</strong></td>
+              <td>입출력/정렬/힙/그래프 유틸 함수 재확인, IDE 단축키 리마인드</td>
+              <td>테스트케이스 생성기(랜덤) 스니펫 준비</td>
+            </tr>
+            <tr>
+              <td><strong>시험 중</strong></td>
+              <td>문제 스캔→난이도 배치(쉬운 것 30분 내 1문제 확정), 반례 체크리스트</td>
+              <td>느리면 <code>pypy3</code> 고려, 문자열·입력은 <code>readline()</code></td>
+            </tr>
+            <tr>
+              <td><strong>제출 직전</strong></td>
+              <td>엣지(빈 입력/중복/음수/정렬 안정성) 테스트, 불필요 로그 제거</td>
+              <td>함수화로 가독성↑, 전역 변수 최소화</td>
+            </tr>
+            <tr>
+              <td><strong>시험 후</strong></td>
+              <td>복기 노트: 시간 분배/실수 유형/반례 수집 → 48시간 내 재풀이</td>
+              <td>오답 태그별 북마크, 다음 스프린트 입력</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="card table mt">
+        <h3>[NEW] 4주 스프린트 샘플 (파이썬 기준)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>주차</th>
+              <th>핵심 목표</th>
+              <th>백준</th>
+              <th>프로그래머스</th>
+              <th>성과 지표</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1주차</strong></td>
+              <td>구현/시뮬, 입출력 최적화, 템플릿 세팅</td>
+              <td>구현·시뮬 12문제</td>
+              <td>Lv2 6문제</td>
+              <td>모의 1회(2문제 완)</td>
+            </tr>
+            <tr>
+              <td><strong>2주차</strong></td>
+              <td>그래프(BFS/DFS/최단경로)</td>
+              <td>그래프 10문제</td>
+              <td>Lv3 그래프 4문제</td>
+              <td>BFS/다익스트라 무오답 세팅</td>
+            </tr>
+            <tr>
+              <td><strong>3주차</strong></td>
+              <td>DP·그리디·정렬</td>
+              <td>DP 8 + 그리디/정렬 6</td>
+              <td>Lv3 DP/그리디 4</td>
+              <td>모의 1회(2~3문제)</td>
+            </tr>
+            <tr>
+              <td><strong>4주차</strong></td>
+              <td>문자열/해시·투포인터·약점 보완</td>
+              <td>문자열/투포인터 10</td>
+              <td>Lv2–3 6</td>
+              <td>실전 리허설(90~120분)</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <!-- ===================== [NEW] 끝 ===================== -->
+
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© 2025 김재현 — Learning & Coding</p>
+      <a class="top" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">맨 위로 ↑</a>
+    </div>
+  </footer>
+</body>
+</html>
