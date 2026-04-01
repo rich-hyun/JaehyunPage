@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>자산 현황 · 김재현</title>
+  <meta name="theme-color" content="#0b0f19" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:#0b0f19;color:rgba(255,255,255,.85);min-height:100vh;line-height:1.6}
+    :root{--accent:#c9a84c;--pos:#4caf82;--neg:#e05a5a;--border:rgba(255,255,255,.08);--surf:rgba(255,255,255,.04);--dim:rgba(255,255,255,.45);--mute:rgba(255,255,255,.25)}
+    .skip-link{position:absolute;top:-999px;left:8px;background:var(--accent);color:#0b0f19;padding:6px 12px;border-radius:4px;font-size:13px;z-index:9999}
+    .skip-link:focus{top:8px}
+    .site-header{border-bottom:1px solid var(--border)}
+    .nav{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px}
+    .brand{font-size:15px;font-weight:700;letter-spacing:.08em;color:#fff}
+    .brand a{text-decoration:none;color:inherit}
+    .nav-links{display:flex;gap:24px;list-style:none}
+    .nav-links a{text-decoration:none;font-size:13px;color:var(--dim);transition:color .2s;letter-spacing:.02em}
+    .nav-links a:hover{color:#fff}
+    .nav-links a.active{color:var(--accent)}
+    .hero{position:relative;overflow:hidden;padding:72px 24px 64px;text-align:center}
+    .hero-inner{position:relative;z-index:1;max-width:720px;margin:0 auto}
+    .hero-title{font-size:clamp(24px,5vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1.15;background:linear-gradient(135deg,#fff 30%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px}
+    .hero-lead{font-size:15px;color:var(--dim);line-height:1.75;margin-bottom:24px}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:28px}
+    .tag{padding:4px 12px;border:1px solid var(--border);border-radius:999px;font-size:12px;color:var(--dim);background:var(--surf);letter-spacing:.03em}
+    .hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(201,168,76,.12),transparent 70%)}
+    .container{max-width:980px;margin:0 auto;padding:0 24px}
+    .section{padding:48px 0}
+    .asset-tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:2rem}
+    .asset-tab{padding:12px 26px;font-size:14px;cursor:pointer;border:none;background:none;color:var(--dim);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:inherit;letter-spacing:.02em;transition:color .2s}
+    .asset-tab:hover{color:rgba(255,255,255,.7)}
+    .asset-tab.active{color:#fff;border-bottom-color:var(--accent)}
+    .asset-section{display:none}
+    .asset-section.active{display:block}
+    .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.5rem}
+    .stat-card{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;text-align:center;transition:border-color .2s}
+    .stat-card:hover{border-color:rgba(201,168,76,.3)}
+    .stat-label{font-size:11px;color:var(--mute);margin-bottom:7px;letter-spacing:.06em;text-transform:uppercase}
+    .stat-val{font-size:20px;font-weight:700;color:#fff}
+    .stat-val.pos{color:var(--pos)}
+    .stat-val.neg{color:var(--neg)}
+    .chart-box{background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:1.35rem;margin-bottom:1rem}
+    .chart-title{font-size:13px;color:var(--dim);margin-bottom:12px;font-weight:500;letter-spacing:.03em}
+    .chart-wrap{position:relative;width:100%;height:220px}
+    .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .goal-bar-bg{background:rgba(255,255,255,.07);border-radius:100px;height:10px;overflow:hidden;margin-top:8px}
+    .goal-bar-fill{height:10px;background:var(--accent);border-radius:100px;transition:width .7s ease}
+    .goal-text{font-size:12px;color:var(--dim);margin-top:6px;text-align:right}
+    .legend-row{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;color:var(--dim);margin-bottom:8px}
+    .leg-item{display:flex;align-items:center;gap:5px}
+    .leg-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+    .input-card{background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem}
+    .input-card-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:1.25rem;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    .form-2col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+    .field label{font-size:12px;color:var(--dim);font-weight:500;letter-spacing:.04em}
+    .field input[type=number]{padding:10px 13px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.05);color:#fff;font-size:13px;width:100%;font-family:inherit;transition:border-color .2s}
+    .field input[type=number]:focus{outline:none;border-color:var(--accent)}
+    .field input[type=number]::placeholder{color:var(--mute)}
+    .date-btn{padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.05);color:#fff;font-size:13px;cursor:pointer;text-align:left;width:100%;display:flex;align-items:center;justify-content:space-between;font-family:inherit;transition:border-color .2s}
+    .date-btn:hover{border-color:var(--accent)}
+    .date-btn .ph{color:var(--mute)}
+    .cal-wrap{margin-top:8px;border:1.5px solid var(--accent);border-radius:12px;padding:18px;background:#0d1220;display:none}
+    .cal-wrap.open{display:block}
+    .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+    .cal-nav{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:6px;padding:5px 14px;cursor:pointer;font-size:16px;color:var(--dim);font-family:inherit;transition:background .2s}
+    .cal-nav:hover{background:rgba(255,255,255,.12);color:#fff}
+    .cal-month{font-size:14px;font-weight:700;color:#fff}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;max-width:294px;margin:0 auto}
+    .cal-dow{font-size:11px;color:var(--mute);text-align:center;padding:5px 0;font-weight:600}
+    .cal-day{font-size:12px;text-align:center;padding:7px 3px;border-radius:6px;cursor:pointer;color:var(--dim);border:1px solid transparent;transition:background .15s}
+    .cal-day:hover{background:rgba(255,255,255,.1);color:#fff}
+    .cal-day.today{color:var(--accent);border-color:var(--accent);font-weight:700}
+    .cal-day.selected{background:var(--accent);color:#0b0f19;font-weight:800}
+    .cal-day.empty{pointer-events:none}
+    .add-btn{width:100%;padding:12px;margin-top:6px;background:var(--accent);color:#0b0f19;border:none;border-radius:8px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:.04em;transition:opacity .2s}
+    .add-btn:hover{opacity:.85}
+    .dl-btn{display:flex;align-items:center;gap:6px;padding:7px 15px;background:rgba(76,175,130,.12);border:1px solid rgba(76,175,130,.35);border-radius:8px;color:var(--pos);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;white-space:nowrap}
+    .dl-btn:hover{background:rgba(76,175,130,.22)}
+    .data-table{width:100%;border-collapse:collapse;font-size:12px}
+    .data-table th{padding:10px 11px;background:rgba(255,255,255,.05);color:var(--dim);font-weight:600;text-align:right;border-top:1px solid var(--border);border-bottom:1px solid var(--border);white-space:nowrap}
+    .data-table th:first-child{text-align:left}
+    .data-table td{padding:10px 11px;text-align:right;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(255,255,255,.75)}
+    .data-table td:first-child{text-align:left;color:var(--dim);font-size:11px}
+    .data-table tr:hover td{background:rgba(255,255,255,.03)}
+    .del-btn{background:none;border:1px solid rgba(255,255,255,.1);border-radius:4px;cursor:pointer;color:var(--mute);font-size:11px;padding:2px 8px;font-family:inherit;transition:all .15s}
+    .del-btn:hover{color:var(--neg);border-color:var(--neg)}
+    .footer{border-top:1px solid var(--border);padding:24px;margin-top:24px}
+    .footer-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .footer p{font-size:13px;color:var(--mute)}
+    .footer .top{font-size:13px;color:var(--dim);text-decoration:none;transition:color .2s}
+    .footer .top:hover{color:#fff}
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0d1628;border:1px solid var(--accent);color:var(--accent);padding:11px 22px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9999;white-space:nowrap}
+    .toast.show{opacity:1}
+    @media(max-width:680px){.stat-grid{grid-template-columns:repeat(2,1fr)}.chart-row{grid-template-columns:1fr}.form-2col{grid-template-columns:1fr}}
+    @media(max-width:420px){.nav-links{display:none}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <nav class="nav">
+      <div class="brand"><a href="index.html">KIM JAEHYUN</a></div>
+      <ul class="nav-links">
+        <li><a href="index.html#about">소개</a></li>
+        <li><a href="roadmap.html#roadmap">로드맵</a></li>
+        <li><a href="codetest.html">코딩 테스트</a></li>
+        <li><a href="blockchain.html">블록체인 개발 포트폴리오</a></li>
+        <li><a href="asset.html" class="active">자산 현황</a></li>
+      </ul>
+    </nav>
+    <section class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">자산 현황 대시보드</h1>
+        <p class="hero-lead">월별 자산 추적 · ISA / 일반계좌 / 암호화폐 / 금 / 현금<br>데이터는 이 브라우저에 영구 저장됩니다</p>
+        <div class="tags">
+          <span class="tag">ISA계좌</span><span class="tag">암호화폐</span>
+          <span class="tag">금</span><span class="tag">현금</span><span class="tag">목표: 1억</span>
+        </div>
+      </div>
+      <div class="hero-glow" aria-hidden="true"></div>
+    </section>
+  </header>
+  <main id="main">
+    <section class="section container">
+      <div class="asset-tabs">
+        <button class="asset-tab active" onclick="switchTab('dashboard')">📊 자산 대시보드</button>
+        <button class="asset-tab"        onclick="switchTab('entry')">✏️ 월별 자산 입력</button>
+      </div>
+      <div class="asset-section active" id="tab-dashboard">
+        <div class="stat-grid" id="stat-grid"></div>
+        <div class="chart-box">
+          <div class="chart-title">▶ 총자산 추이</div>
+          <div id="trend-legend" class="legend-row"></div>
+          <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-box">
+            <div class="chart-title">▶ 전월 대비 증감</div>
+            <div class="chart-wrap"><canvas id="changeChart"></canvas></div>
+          </div>
+          <div class="chart-box">
+            <div class="chart-title">▶ 자산 구성 비율 (최근 월)</div>
+            <div id="pie-legend" class="legend-row"></div>
+            <div class="chart-wrap"><canvas id="pieChart"></canvas></div>
+          </div>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">🎯 1억 달성 목표</div>
+          <div class="goal-bar-bg"><div class="goal-bar-fill" id="goal-bar" style="width:0%"></div></div>
+          <div class="goal-text" id="goal-text">-</div>
+        </div>
+      </div>
+      <div class="asset-section" id="tab-entry">
+        <div class="input-card">
+          <div class="input-card-title">새 자산 기록 추가</div>
+          <div class="field">
+            <label>날짜</label>
+            <button class="date-btn" onclick="toggleCal()">
+              <span id="dateBtnTxt" class="ph">날짜를 선택하세요</span>
+              <span style="font-size:16px;opacity:.4">📅</span>
+            </button>
+            <input type="hidden" id="dateVal">
+          </div>
+          <div class="cal-wrap" id="calWrap">
+            <div class="cal-header">
+              <button class="cal-nav" onclick="calNav(-1)">&#8249;</button>
+              <span class="cal-month" id="calMonthLabel"></span>
+              <button class="cal-nav" onclick="calNav(1)">&#8250;</button>
+            </div>
+            <div class="cal-grid" id="calGrid"></div>
+          </div>
+          <div class="form-2col" style="margin-top:16px">
+            <div class="field"><label>ISA 계좌 (원)</label><input type="number" id="f-isa"    placeholder="0"></div>
+            <div class="field"><label>일반 계좌 (원)</label><input type="number" id="f-gen"    placeholder="0"></div>
+            <div class="field"><label>암호화폐 (원)</label> <input type="number" id="f-crypto" placeholder="0"></div>
+            <div class="field"><label>금 (원)</label>       <input type="number" id="f-gold"   placeholder="0"></div>
+          </div>
+          <div class="field"><label>현금 (원)</label><input type="number" id="f-cash" placeholder="0"></div>
+          <button class="add-btn" onclick="addEntry()">+ 추가하기</button>
+        </div>
+        <div class="input-card">
+          <div class="input-card-title">
+            <span>입력 내역</span>
+            <button class="dl-btn" onclick="downloadExcel()">⬇ 엑셀 다운로드</button>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="data-table">
+              <thead><tr>
+                <th>날짜</th><th>ISA계좌</th><th>일반계좌</th><th>암호화폐</th>
+                <th>금</th><th>현금</th><th>총자산</th><th>전월대비</th><th>증감률</th><th></th>
+              </tr></thead>
+              <tbody id="dataBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>© 2025 김재현 — 자산 현황</p>
+      <a class="top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">맨 위로 ↑</a>
+    </div>
+  </footer>
+  <div class="toast" id="toast"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script>
+    const DOWS=['일','월','화','수','목','금','토'];
+    const MONTHS=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+    const CATS=['ISA계좌','일반계좌','암호화폐','금','현금'];
+    const COLORS=['#c9a84c','#4caf82','#a07be0','#e09a3a','#e05a5a'];
+    const LS_KEY='jaehyun_assets_v2';
+    function loadRecords(){try{const r=localStorage.getItem(LS_KEY);if(r)return JSON.parse(r)}catch(e){}return[{date:'2026-02-24',isa:19763120,gen:12394520,crypto:9014737,gold:843178,cash:44099353}]}
+    function saveRecords(){localStorage.setItem(LS_KEY,JSON.stringify(records))}
+    let records=loadRecords(),trendChart=null,changeChart=null,pieChart=null;
+    let calYear,calMonth,selDate=null,calOpen=false;
+    const fmt=n=>Math.round(n).toLocaleString('ko-KR');
+    const fmtShort=n=>Math.round(n/10000).toLocaleString('ko-KR')+'만';
+    const total=r=>r.isa+r.gen+r.crypto+r.gold+r.cash;
+    const sorted=()=>[...records].sort((a,b)=>a.date.localeCompare(b.date));
+    const dateLabel=d=>{const dt=new Date(d);return `${dt.getFullYear()}년 ${dt.getMonth()+1}월 ${dt.getDate()}일 ${DOWS[dt.getDay()]}요일`};
+    const shortLabel=d=>{const dt=new Date(d);return `${dt.getFullYear()}.${String(dt.getMonth()+1).padStart(2,'0')}`};
+    function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800)}
+    function switchTab(name){
+      document.querySelectorAll('.asset-tab').forEach((b,i)=>b.classList.toggle('active',['dashboard','entry'][i]===name));
+      document.querySelectorAll('.asset-section').forEach((s,i)=>s.classList.toggle('active',['tab-dashboard','tab-entry'][i]==='tab-'+name));
+      name==='dashboard'?renderDashboard():renderTable();
+    }
+    function renderDashboard(){
+      const s=sorted(),sg=document.getElementById('stat-grid');
+      if(!s.length){sg.innerHTML='<p style="grid-column:1/-1;color:rgba(255,255,255,.35);font-size:13px;padding:1rem 0">데이터를 입력해주세요.</p>';return}
+      const last=s[s.length-1],first=s[0];
+      const lastT=total(last),firstT=total(first),diff=lastT-firstT;
+      const rate=firstT>0?(diff/firstT)*100:0;
+      const totals=s.map(r=>total(r));
+      const maxT=Math.max(...totals),minT=Math.min(...totals);
+      const changes=s.map((r,i)=>i===0?0:total(r)-total(s[i-1]));
+      sg.innerHTML=`
+        <div class="stat-card"><div class="stat-label">💰 현재 총자산</div><div class="stat-val">${fmtShort(lastT)}만원</div></div>
+        <div class="stat-card"><div class="stat-label">📈 최초 대비 증가</div><div class="stat-val ${diff>=0?'pos':'neg'}">${diff>=0?'+':''}${fmtShort(diff)}만원</div></div>
+        <div class="stat-card"><div class="stat-label">📊 총 수익률</div><div class="stat-val ${rate>=0?'pos':'neg'}">${rate>=0?'+':''}${rate.toFixed(1)}%</div></div>
+        <div class="stat-card"><div class="stat-label">🏆 최고 자산</div><div class="stat-val">${fmtShort(maxT)}만원</div></div>
+        <div class="stat-card"><div class="stat-label">📉 최저 자산</div><div class="stat-val">${fmtShort(minT)}만원</div></div>
+        <div class="stat-card"><div class="stat-label">🗓️ 기록 수</div><div class="stat-val">${s.length}개월</div></div>`;
+      const goalPct=Math.min(100,(lastT/100000000)*100);
+      document.getElementById('goal-bar').style.width=goalPct+'%';
+      document.getElementById('goal-text').textContent=`현재 ${goalPct.toFixed(1)}% 달성 (${fmtShort(lastT)}만 / 목표 1억)`;
+      const labels=s.map(r=>shortLabel(r.date));
+      const tickCfg={callback:v=>fmtShort(v),font:{size:11},color:'rgba(255,255,255,.4)'};
+      if(trendChart)trendChart.destroy();
+      trendChart=new Chart(document.getElementById('trendChart'),{type:'line',data:{labels,datasets:[{label:'총자산',data:totals,borderColor:'#c9a84c',backgroundColor:'rgba(201,168,76,.08)',fill:true,tension:0.35,pointRadius:5,pointBackgroundColor:'#c9a84c',pointBorderColor:'#0b0f19',pointBorderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:tickCfg,grid:{color:'rgba(255,255,255,.05)'}},x:{ticks:{font:{size:11},color:'rgba(255,255,255,.4)'},grid:{display:false}}}}});
+      document.getElementById('trend-legend').innerHTML='<span class="leg-item"><span class="leg-dot" style="background:#c9a84c"></span>총자산</span>';
+      if(changeChart)changeChart.destroy();
+      const cData=changes.slice(1),cLabels=labels.slice(1);
+      changeChart=new Chart(document.getElementById('changeChart'),{type:'bar',data:{labels:cLabels.length?cLabels:[''],datasets:[{data:cData.length?cData:[0],backgroundColor:cData.map(v=>v>=0?'rgba(76,175,130,.7)':'rgba(224,90,90,.7)'),borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:tickCfg,grid:{color:'rgba(255,255,255,.05)'}},x:{ticks:{font:{size:11},color:'rgba(255,255,255,.4)'},grid:{display:false}}}}});
+      const pData=[last.isa,last.gen,last.crypto,last.gold,last.cash];
+      const pTotal=pData.reduce((a,b)=>a+b,0);
+      if(pieChart)pieChart.destroy();
+      pieChart=new Chart(document.getElementById('pieChart'),{type:'doughnut',data:{labels:CATS,datasets:[{data:pData,backgroundColor:COLORS,borderWidth:2,borderColor:'#0b0f19'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: ${((c.raw/pTotal)*100).toFixed(1)}%`}}}}});
+      document.getElementById('pie-legend').innerHTML=CATS.map((n,i)=>`<span class="leg-item"><span class="leg-dot" style="background:${COLORS[i]}"></span>${n} ${pTotal>0?((pData[i]/pTotal)*100).toFixed(0):0}%</span>`).join('');
+    }
+    function renderTable(){
+      const s=sorted(),tb=document.getElementById('dataBody');
+      tb.innerHTML='';
+      if(!s.length){tb.innerHTML='<tr><td colspan="10" style="text-align:center;padding:28px;color:rgba(255,255,255,.3)">기록이 없습니다</td></tr>';return}
+      s.forEach((r,i)=>{
+        const t=total(r),prev=i>0?total(s[i-1]):null,diff=prev!=null?t-prev:null,rate=prev>0?(diff/prev)*100:null;
+        const c=v=>v>=0?'#4caf82':'#e05a5a';
+        const tr=document.createElement('tr');
+        tr.innerHTML=`<td style="white-space:nowrap">${dateLabel(r.date)}</td><td>${fmt(r.isa)}</td><td>${fmt(r.gen)}</td><td>${fmt(r.crypto)}</td><td>${fmt(r.gold)}</td><td>${fmt(r.cash)}</td><td style="font-weight:700;color:#fff">${fmt(t)}</td><td style="color:${diff==null?'inherit':c(diff)}">${diff==null?'-':(diff>=0?'+':'')+fmt(diff)}</td><td style="color:${rate==null?'inherit':c(rate)}">${rate==null?'-':(rate>=0?'+':'')+rate.toFixed(1)+'%'}</td><td><button class="del-btn" onclick="delEntry('${r.date}')">✕</button></td>`;
+        tb.appendChild(tr);
+      });
+    }
+    function delEntry(date){if(!confirm('이 기록을 삭제하시겠습니까?'))return;records=records.filter(r=>r.date!==date);saveRecords();renderTable();showToast('🗑 기록이 삭제되었습니다')}
+    function addEntry(){
+      const dv=document.getElementById('dateVal').value;
+      if(!dv){alert('날짜를 선택해주세요');return}
+      if(records.find(r=>r.date===dv)){alert('이미 해당 날짜의 기록이 있습니다.');return}
+      const isa=parseFloat(document.getElementById('f-isa').value)||0;
+      const gen=parseFloat(document.getElementById('f-gen').value)||0;
+      const crypto=parseFloat(document.getElementById('f-crypto').value)||0;
+      const gold=parseFloat(document.getElementById('f-gold').value)||0;
+      const cash=parseFloat(document.getElementById('f-cash').value)||0;
+      records.push({date:dv,isa,gen,crypto,gold,cash});
+      saveRecords();
+      ['f-isa','f-gen','f-crypto','f-gold','f-cash'].forEach(id=>document.getElementById(id).value='');
+      const span=document.getElementById('dateBtnTxt');
+      span.textContent='날짜를 선택하세요';span.className='ph';
+      document.getElementById('dateVal').value='';
+      selDate=null;closeCal();renderTable();
+      showToast('✅ 저장 완료! 브라우저를 닫아도 유지됩니다.');
+    }
+    function toggleCal(){calOpen?closeCal():openCal()}
+    function openCal(){const now=new Date();calYear=now.getFullYear();calMonth=now.getMonth();buildCal();document.getElementById('calWrap').classList.add('open');calOpen=true}
+    function closeCal(){document.getElementById('calWrap').classList.remove('open');calOpen=false}
+    function calNav(dir){calMonth+=dir;if(calMonth>11){calMonth=0;calYear++}if(calMonth<0){calMonth=11;calYear--}buildCal()}
+    function buildCal(){
+      document.getElementById('calMonthLabel').textContent=`${calYear}년 ${MONTHS[calMonth]}`;
+      const g=document.getElementById('calGrid');
+      const first=new Date(calYear,calMonth,1).getDay();
+      const days=new Date(calYear,calMonth+1,0).getDate();
+      const today=new Date();
+      g.innerHTML=DOWS.map(d=>`<div class="cal-dow">${d}</div>`).join('');
+      for(let i=0;i<first;i++)g.innerHTML+=`<div class="cal-day empty"></div>`;
+      for(let d=1;d<=days;d++){
+        const ds=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const isToday=today.getFullYear()===calYear&&today.getMonth()===calMonth&&today.getDate()===d;
+        const isSel=selDate===ds;
+        g.innerHTML+=`<div class="cal-day${isToday?' today':''}${isSel?' selected':''}" onclick="pickDay('${ds}')">${d}</div>`;
+      }
+    }
+    function pickDay(ds){selDate=ds;const dt=new Date(ds);const txt=`${dt.getFullYear()}년 ${dt.getMonth()+1}월 ${dt.getDate()}일 ${DOWS[dt.getDay()]}요일`;const span=document.getElementById('dateBtnTxt');span.textContent=txt;span.className='';document.getElementById('dateVal').value=ds;closeCal()}
+    function downloadExcel(){
+      const s=sorted();
+      if(!s.length){showToast('저장할 데이터가 없습니다');return}
+      const headers=['날짜','ISA계좌','일반계좌','암호화폐','금','현금','총자산','전월대비증감','전월대비증감률'];
+      const rows=s.map((r,i)=>{const t=total(r),prev=i>0?total(s[i-1]):null,diff=prev!=null?t-prev:null,rate=prev!=null&&prev>0?diff/prev:null;return[dateLabel(r.date),r.isa,r.gen,r.crypto,r.gold,r.cash,t,diff!=null?diff:'',rate!=null?rate:'']});
+      const wb=XLSX.utils.book_new();
+      const ws1=XLSX.utils.aoa_to_sheet([headers,...rows]);
+      ws1['!cols']=[{wch:28},{wch:14},{wch:14},{wch:14},{wch:12},{wch:14},{wch:14},{wch:14},{wch:12}];
+      rows.forEach((_,i)=>{const ref=XLSX.utils.encode_cell({r:i+1,c:8});if(ws1[ref]&&typeof ws1[ref].v==='number')ws1[ref].z='0.00%'});
+      XLSX.utils.book_append_sheet(wb,ws1,'월별자산입력');
+      const last=s[s.length-1],fr=s[0],lastT=total(last),firstT=total(fr),d2=lastT-firstT;
+      const ws2=XLSX.utils.aoa_to_sheet([['현재 총자산',lastT],['최초 대비 증가',d2],['총 수익률',firstT>0?d2/firstT:0],['최고 자산',Math.max(...s.map(r=>total(r)))],['최저 자산',Math.min(...s.map(r=>total(r)))],['기록 수',s.length],['1억 달성률',lastT/100000000]]);
+      ws2['!cols']=[{wch:18},{wch:16}];
+      ['B1','B2','B4','B5'].forEach(c=>{if(ws2[c])ws2[c].z='#,##0'});
+      ['B3','B7'].forEach(c=>{if(ws2[c])ws2[c].z='0.00%'});
+      XLSX.utils.book_append_sheet(wb,ws2,'요약');
+      const now=new Date(),fname=`김재현_자산현황_${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}.xlsx`;
+      XLSX.writeFile(wb,fname);showToast(`✅ ${fname} 저장 완료!`);
+    }
+    renderDashboard();
+  </script>
+</body>
+</html>
